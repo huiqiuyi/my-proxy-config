@@ -11,6 +11,9 @@ dns:
   nameserver:
     - 223.5.5.5
     - 8.8.8.8
+  fallback:
+    - 1.1.1.1
+    - 8.8.4.4
 
 proxies:
   - name: "Reality-VPS"
@@ -35,6 +38,42 @@ proxy-groups:
       - Reality-VPS
       - DIRECT
 
+  - name: 🌍 国外流量
+    type: select
+    proxies:
+      - Reality-VPS
+
+  - name: 🇨🇳 国内直连
+    type: select
+    proxies:
+      - DIRECT
+
+  - name: 🎬 Netflix
+    type: select
+    proxies:
+      - Reality-VPS
+
+  - name: 🤖 ChatGPT
+    type: select
+    proxies:
+      - Reality-VPS
+
 rules:
+  # 本地直连
+  - DOMAIN-SUFFIX,cn,DIRECT
   - GEOIP,CN,DIRECT
+
+  # ChatGPT
+  - DOMAIN-SUFFIX,openai.com,🤖 ChatGPT
+  - DOMAIN-SUFFIX,chatgpt.com,🤖 ChatGPT
+
+  # Netflix
+  - DOMAIN-SUFFIX,netflix.com,🎬 Netflix
+  - DOMAIN-SUFFIX,nflxvideo.net,🎬 Netflix
+
+  # Google / YouTube
+  - DOMAIN-SUFFIX,google.com,🌍 国外流量
+  - DOMAIN-SUFFIX,youtube.com,🌍 国外流量
+
+  # 兜底规则
   - MATCH,🚀 节点选择
