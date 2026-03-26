@@ -38,42 +38,44 @@ proxy-groups:
       - Reality-VPS
       - DIRECT
 
-  - name: 🌍 国外流量
+  - name: 🤖 ChatGPT
     type: select
     proxies:
       - Reality-VPS
-
-  - name: 🇨🇳 国内直连
-    type: select
-    proxies:
-      - DIRECT
+      - 🚀 节点选择
 
   - name: 🎬 Netflix
     type: select
     proxies:
       - Reality-VPS
+      - 🚀 节点选择
 
-  - name: 🤖 ChatGPT
+  - name: 🌍 国外流量
     type: select
     proxies:
       - Reality-VPS
+      - 🚀 节点选择
+
+  - name: 🐟 漏网之鱼
+    type: select
+    proxies:
+      - Reality-VPS
+      - DIRECT
 
 rules:
-  # 本地直连
-  - DOMAIN-SUFFIX,cn,DIRECT
-  - GEOIP,CN,DIRECT
-
   # ChatGPT
   - DOMAIN-SUFFIX,openai.com,🤖 ChatGPT
   - DOMAIN-SUFFIX,chatgpt.com,🤖 ChatGPT
 
   # Netflix
   - DOMAIN-SUFFIX,netflix.com,🎬 Netflix
-  - DOMAIN-SUFFIX,nflxvideo.net,🎬 Netflix
 
-  # Google / YouTube
+  # 常见国外
   - DOMAIN-SUFFIX,google.com,🌍 国外流量
   - DOMAIN-SUFFIX,youtube.com,🌍 国外流量
 
-  # 兜底规则
-  - MATCH,🚀 节点选择
+  # 国内直连
+  - GEOIP,CN,DIRECT
+
+  # 兜底
+  - MATCH,🐟 漏网之鱼
