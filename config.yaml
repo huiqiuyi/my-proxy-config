@@ -1,0 +1,40 @@
+port: 7890
+socks-port: 7891
+allow-lan: false
+mode: rule
+log-level: info
+
+dns:
+  enable: true
+  ipv6: true
+  enhanced-mode: fake-ip
+  nameserver:
+    - 223.5.5.5
+    - 8.8.8.8
+
+proxies:
+  - name: "Reality-VPS"
+    type: vless
+    server: 139.180.219.206
+    port: 443
+    uuid: fc95324b-5746-48e3-a760-f20dc4d8864e
+    network: tcp
+    udp: true
+    tls: true
+    flow: xtls-rprx-vision
+    servername: www.microsoft.com
+    reality-opts:
+      public-key: G-k_9BOCKhAUI0u5EcsuyqjgKvPm7VHHQufBfQPMfDw
+      short-id: 6ba85179e30d4fc2
+    client-fingerprint: chrome
+
+proxy-groups:
+  - name: 🚀 节点选择
+    type: select
+    proxies:
+      - Reality-VPS
+      - DIRECT
+
+rules:
+  - GEOIP,CN,DIRECT
+  - MATCH,🚀 节点选择
